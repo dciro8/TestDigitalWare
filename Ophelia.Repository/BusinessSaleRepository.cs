@@ -13,7 +13,7 @@ namespace Ophelia.Repository
         {
 
         }
-        public async Task<List<SalesForYear>> SalesForYear(int year)
+        public async Task<List<SalesForYear>> SalesForYear(string year)
         {
             List<SalesForYear> nextSale = null;
 

@@ -21,7 +21,7 @@ namespace Ophelia.Core
 
             return NextDaySale;
         }
-        public async Task<List<SalesForYear>> GetSalesForYear(int year)
+        public async Task<List<SalesForYear>> GetSalesForYear(string year)
         {
             List <SalesForYear> NextDaySale;
 

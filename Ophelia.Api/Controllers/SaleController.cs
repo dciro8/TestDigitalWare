@@ -33,6 +33,8 @@ namespace Ophelia.Api.Controllers
             var configurationBuilder = new ConfigurationBuilder()
                 .AddJsonFile("appsettings.json")
                 .AddEnvironmentVariables();
+
+            Configuration = configurationBuilder.Build();
             //leer la cadena
             _ruleBusiness = new GetNextSaleBusiness(Configuration.GetSection("ConnectionStrings").GetSection("ConnectionString").Value);
         }
@@ -43,7 +45,7 @@ namespace Ophelia.Api.Controllers
         /// <returns>Retorna lista de productos que indican la cantida vendida y el producto</returns>
         [HttpGet]
         [Route("GetSalesForYear")]
-        public async Task<List<SalesForYear>> GetSalesForYear(int year)
+        public async Task<List<SalesForYear>> GetSalesForYear(string year)
         {
             List<SalesForYear> nextSale = null;
 
