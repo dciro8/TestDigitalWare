@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Ophelia.Model\Ophelia.Model.csproj" />
+    <ProjectReference Include="..\Ophelia.Repository\Ophelia.Repository.csproj" />
+  </ItemGroup>
+
+</Project>
