@@ -74,28 +74,6 @@ namespace Ophelia.Api.Controllers
         }
 
 
-        [HttpGet]
-        [Route("GetNextSale")]
-        public async Task<List<ClientForDate>> GetNextSale(int id)
-        {
-            List<ClientForDate> list = null;
-
-            try
-            {
-                _logger.LogInformation(Resources.Product_Initial_Messages);
-
-                list = await _ruleBusiness.AllClientForDate();
-
-                _logger.LogInformation(Resources.Product_Finally_Messages);
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(e.Message);
-            }
-
-            return list;
-
-        }
-
+        
     }
 }

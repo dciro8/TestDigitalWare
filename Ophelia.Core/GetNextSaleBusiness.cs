@@ -5,11 +5,11 @@ using System.Threading.Tasks;
 
 namespace Ophelia.Core
 {
-  public  class GetNextSale
+  public  class GetNextSaleBusiness
     {
         private readonly NextSaleRepository _repository;
 
-        public GetNextSale(string _connection)
+        public GetNextSaleBusiness(string _connection)
         {
             _repository = new NextSaleRepository(_connection);
         }

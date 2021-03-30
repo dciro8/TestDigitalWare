@@ -15,29 +15,26 @@ namespace Ophelia.Repository
         }
         public async Task<NextSale> GetNextSale(int id)
         {
-            NextSale list = null;
-
-
+            List <NextSale> nextSale = null;
             var cs = "Server=DESKTOP-0SP4VFM\\DCIRO;Database=Billing;Trusted_Connection=True;";
-
-
 
             //using (IDbConnection dbConnection = this.Connection)
             using (var dbConnection = new SqlConnection(cs))
             {
                 dbConnection.Open();
 
-                // DynamicParameters
                 var queryParameters = new DynamicParameters();
                 queryParameters.Add("@parameter ", id);
 
                 var result = await dbConnection.QueryAsync<NextSale>("[USP_GetNextSale]", queryParameters,
                     commandType: CommandType.StoredProcedure);
 
-                list = (NextSale)result;
+                nextSale = result.AsList<NextSale>();
             }
-
-            return list;
+            if (nextSale.Count > 0)
+                return nextSale[0];
+            else
+                return new NextSale();
         }
 
 
