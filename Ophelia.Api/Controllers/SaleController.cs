@@ -14,46 +14,44 @@ using System.Threading.Tasks;
 namespace Ophelia.Api.Controllers
 {
     [ApiController]
-    [Route("api/v1/product")]
-    
-    public class ProductController : Controller
+    [Route("api/v1/NextSale")]
+    public class SaleController : Controller
     {
-        private readonly ILogger<ProductController> _logger;
-        private readonly ProductBusiness _ruleBusiness;
 
+        private readonly ILogger<SaleController> _logger;
+        private readonly GetNextSaleBusiness _ruleBusiness;
         private static IConfiguration Configuration { get; set; }
 
         /// <summary>
-        /// Controlador de manejo de transaccion de producto
+        /// Controlador de manejo del negocio de ventas
         /// </summary>
         /// <param name="logger">Parametro de control de error y seguimiento</param>
-        public ProductController(ILogger<ProductController> logger)
+        public SaleController(ILogger<SaleController> logger)
         {
             _logger = logger;
+
             var configurationBuilder = new ConfigurationBuilder()
                 .AddJsonFile("appsettings.json")
                 .AddEnvironmentVariables();
-            Configuration = configurationBuilder.Build();
             //leer la cadena
-            string ConnectionString = Configuration.GetSection("ConnectionStrings").GetSection("ConnectionString").Value;
-            _ruleBusiness = new ProductBusiness(ConnectionString);
+            _ruleBusiness = new GetNextSaleBusiness(Configuration.GetSection("ConnectionStrings").GetSection("ConnectionString").Value);
         }
         /// <summary>
-        /// Obtiene todos los productos
+        /// Obtiene las fechas por año
         /// </summary>
-        /// <returns>Lista de productos</returns>
+        /// <param name="year">Parametro año</param>
+        /// <returns>Retorna lista de productos que indican la cantida vendida y el producto</returns>
         [HttpGet]
-        [Route("All")]
-        
-        public async Task<List<ProductDto>> All()
+        [Route("GetSalesForYear")]
+        public async Task<List<SalesForYear>> GetSalesForYear(int year)
         {
-            List<ProductDto> list = null;
+            List<SalesForYear> nextSale = null;
 
             try
             {
                 _logger.LogInformation(Resources.Product_Initial_Messages);
-                    
-                list = await _ruleBusiness.GetAllProducts();
+
+                nextSale = await _ruleBusiness.GetSalesForYear(year);
 
                 _logger.LogInformation(Resources.Product_Finally_Messages);
             }
@@ -62,24 +60,25 @@ namespace Ophelia.Api.Controllers
                 _logger.LogError(e.Message);
             }
 
-            return list;
+            return nextSale;
 
         }
         /// <summary>
-        /// Obtiene los clientes por unas fechas determinada
+        /// Obtiene la fecha de posible venta del producto para el proximo año por cliente
         /// </summary>
-        /// <returns>Clientes filtrados por las fechas indicadas en el HU</returns>
+        /// <param name="id">Identificacion del cliente</param>
+        /// <returns>Fecha de la proxima posible venta del año</returns>
         [HttpGet]
-        [Route("AllClientForDate")]
-        public async Task<List<ClientForDate>> AllClientForDate()
+        [Route("GetNextSale")]
+        public async Task<NextSale> GetNextSale(int id)
         {
-            List<ClientForDate> list = null;
+            NextSale nextSale = null;
 
             try
             {
                 _logger.LogInformation(Resources.Product_Initial_Messages);
 
-                list = await _ruleBusiness.AllClientForDate();
+                nextSale = await _ruleBusiness.GetNextDaySale(id);
 
                 _logger.LogInformation(Resources.Product_Finally_Messages);
             }
@@ -88,11 +87,7 @@ namespace Ophelia.Api.Controllers
                 _logger.LogError(e.Message);
             }
 
-            return list;
-
+            return nextSale;
         }
-
-
-        
     }
 }

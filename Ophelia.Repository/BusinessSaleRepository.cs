@@ -7,12 +7,31 @@ using System.Data;
 using System.Threading.Tasks;
 namespace Ophelia.Repository
 {
-   public class NextSaleRepository : BaseRepository
+   public class BusinessSaleRepository : BaseRepository
     {
-        public NextSaleRepository(string _connectionString) : base(_connectionString)
+        public BusinessSaleRepository(string _connectionString) : base(_connectionString)
         {
 
         }
+        public async Task<List<SalesForYear>> SalesForYear(int year)
+        {
+            List<SalesForYear> nextSale = null;
+
+            using (IDbConnection dbConnection = this.Connection)
+            {
+                dbConnection.Open();
+
+                var queryParameters = new DynamicParameters();
+                queryParameters.Add("@parameter", year);
+
+                var result = await dbConnection.QueryAsync<SalesForYear>("[BSP_GetSaleForYear]", queryParameters,
+                    commandType: CommandType.StoredProcedure);
+
+                nextSale = result.AsList<SalesForYear>();
+            }
+            return nextSale;
+        }
+
         public async Task<NextSale> GetNextSale(int id)
         {
             List <NextSale> nextSale = null;

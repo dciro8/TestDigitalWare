@@ -7,11 +7,11 @@ namespace Ophelia.Core
 {
   public  class GetNextSaleBusiness
     {
-        private readonly NextSaleRepository _repository;
+        private readonly BusinessSaleRepository _repository;
 
         public GetNextSaleBusiness(string _connection)
         {
-            _repository = new NextSaleRepository(_connection);
+            _repository = new BusinessSaleRepository(_connection);
         }
         public async Task<NextSale> GetNextDaySale(int id)
         {
@@ -21,5 +21,15 @@ namespace Ophelia.Core
 
             return NextDaySale;
         }
+        public async Task<List<SalesForYear>> GetSalesForYear(int year)
+        {
+            List <SalesForYear> NextDaySale;
+
+            NextDaySale = await _repository.SalesForYear(year);
+
+            return NextDaySale;
+        }
+
+        
     }
 }

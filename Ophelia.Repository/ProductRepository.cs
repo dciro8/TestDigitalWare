@@ -18,18 +18,11 @@ namespace Ophelia.Repository
         public async Task<List<ProductDto>> GetAll()
         {
             List<ProductDto> list = null;
-
-
-            var cs = "Server=DESKTOP-0SP4VFM\\DCIRO;Database=Billing;Trusted_Connection=True;";
-
-
-
-            //using (IDbConnection dbConnection = this.Connection)
-            using (var dbConnection = new SqlConnection(cs))
+            
+            //var cs = "Server=DESKTOP-0SP4VFM\\DCIRO;Database=Billing;Trusted_Connection=True;";
+            using (IDbConnection dbConnection = this.Connection)
             {
                 dbConnection.Open();
-
-                // DynamicParameters
 
                 var result = await dbConnection.QueryAsync<ProductDto>("[USP_GetAllProducts]", new { },
                     commandType: CommandType.StoredProcedure);
