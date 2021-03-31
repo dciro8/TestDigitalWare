@@ -37,7 +37,7 @@ namespace Ophelia.Api
 
                 {
 
-                    builder.WithOrigins("http://localhost:4202")
+                    builder.WithOrigins("*")
 
                             .AllowAnyHeader()
 
