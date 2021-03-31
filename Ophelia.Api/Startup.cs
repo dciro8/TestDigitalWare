@@ -21,11 +21,31 @@ namespace Ophelia.Api
             Configuration = configuration;
         }
 
+        readonly string allowSpecificOrigins = "_allowSpecificOrigins";
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+
+            {
+
+                options.AddPolicy(allowSpecificOrigins,
+
+                builder =>
+
+                {
+
+                    builder.WithOrigins("http://localhost:4202")
+
+                            .AllowAnyHeader()
+
+                            .AllowAnyMethod();
+
+                });
+
+            });
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -37,6 +57,9 @@ namespace Ophelia.Api
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+
+            app.UseCors(allowSpecificOrigins);
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

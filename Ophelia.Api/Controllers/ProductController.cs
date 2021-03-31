@@ -10,6 +10,7 @@ using System;
 
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Web.Http.Cors;
 
 namespace Ophelia.Api.Controllers
 {
@@ -42,6 +43,7 @@ namespace Ophelia.Api.Controllers
         /// Obtiene todos los productos
         /// </summary>
         /// <returns>Lista de productos</returns>
+        /// 
         [HttpGet]
         [Route("All")]
         
