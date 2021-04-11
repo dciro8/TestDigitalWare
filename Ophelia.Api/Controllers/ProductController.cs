@@ -16,7 +16,7 @@ namespace Ophelia.Api.Controllers
 {
     [ApiController]
     [Route("api/v1/product")]
-    
+
     public class ProductController : Controller
     {
         private readonly ILogger<ProductController> _logger;
@@ -33,7 +33,7 @@ namespace Ophelia.Api.Controllers
             _logger = logger;
             var configurationBuilder = new ConfigurationBuilder()
                 .AddJsonFile("appsettings.json")
-                .AddEnvironmentVariables();
+                . AddEnvironmentVariables();
             Configuration = configurationBuilder.Build();
             //leer la cadena
             string ConnectionString = Configuration.GetSection("ConnectionStrings").GetSection("ConnectionString").Value;
@@ -46,7 +46,7 @@ namespace Ophelia.Api.Controllers
         /// 
         [HttpGet]
         [Route("All")]
-        
+
         public async Task<List<ProductDto>> All()
         {
             List<ProductDto> list = null;
@@ -54,7 +54,7 @@ namespace Ophelia.Api.Controllers
             try
             {
                 _logger.LogInformation(Resources.Product_Initial_Messages);
-                    
+
                 list = await _ruleBusiness.GetAllProducts();
 
                 _logger.LogInformation(Resources.Product_Finally_Messages);
@@ -67,6 +67,35 @@ namespace Ophelia.Api.Controllers
             return list;
 
         }
+
+             /// <summary>
+             /// Obtiene los clientes por unas fechas determinada
+             /// </summary>
+             /// <returns>Clientes filtrados por las fechas indicadas en el HU</returns>
+        [HttpPost]
+        [Route("CreteProduct")]
+        public async Task<int> CreateProduct(ProductDto productDto)
+        {
+            int result = 0;
+
+            try
+            {
+                _logger.LogInformation(Resources.Product_Initial_Messages);
+
+                result = await _ruleBusiness.CreateProduct(productDto);
+
+                _logger.LogInformation(Resources.Product_Finally_Messages);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e.Message);
+            }
+
+            return result;
+
+        }
+
+
         /// <summary>
         /// Obtiene los clientes por unas fechas determinada
         /// </summary>
@@ -95,6 +124,6 @@ namespace Ophelia.Api.Controllers
         }
 
 
-        
+
     }
 }

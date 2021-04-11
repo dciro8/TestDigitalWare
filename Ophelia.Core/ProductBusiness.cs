@@ -32,7 +32,18 @@ namespace Ophelia.Core
             return list;
         }
 
-    
+        public async Task<int> CreateProduct(ProductDto productDto)
+        {
+            int result;
+
+            result = await _repository.CreateProduct(productDto);
+
+            return result;
+}
+
+
+
+
 
     }
 }

@@ -18,7 +18,7 @@ namespace Ophelia.Repository
         public async Task<List<ProductDto>> GetAll()
         {
             List<ProductDto> list = null;
-            
+
             //var cs = "Server=DESKTOP-0SP4VFM\\DCIRO;Database=Billing;Trusted_Connection=True;";
             using (IDbConnection dbConnection = this.Connection)
             {
@@ -36,13 +36,7 @@ namespace Ophelia.Repository
         {
             List<ClientForDate> list = null;
 
-
-            var cs = "Server=DESKTOP-0SP4VFM\\DCIRO;Database=Billing;Trusted_Connection=True;";
-
-
-
-            //using (IDbConnection dbConnection = this.Connection)
-            using (var dbConnection = new SqlConnection(cs))
+            using (IDbConnection dbConnection = this.Connection)
             {
                 dbConnection.Open();
 
@@ -52,9 +46,37 @@ namespace Ophelia.Repository
                     commandType: CommandType.StoredProcedure);
 
                 list = result.AsList<ClientForDate>();
+
             }
 
             return list;
         }
+
+
+        public async Task<int> CreateProduct(ProductDto productDto)
+        {
+            int resultSentence= 0;
+            
+            using (IDbConnection dbConnection = this.Connection)
+            {
+                dbConnection.Open();
+                var queryParameters = new DynamicParameters();
+
+                queryParameters.Add("@Id", productDto.Id);
+                queryParameters.Add("@Code", productDto.Code);
+                queryParameters.Add("@Name", productDto.Name);
+                queryParameters.Add("@Price", productDto.Price);
+                queryParameters.Add("@Quantity", productDto.Quantity);
+                queryParameters.Add("@MinimunAlloweb", productDto.MinimunAlloweb);
+
+                var result = await dbConnection.ExecuteAsync("[USP_INSERT_dbo_Product]", queryParameters,
+                    commandType: CommandType.StoredProcedure);
+
+                resultSentence = int.Parse(result.ToString());
+            }
+
+            return resultSentence;
+        }
+
     }
 }

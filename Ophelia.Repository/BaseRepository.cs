@@ -1,6 +1,6 @@
 ﻿
-using System.Data;
 using Microsoft.Data.SqlClient;
+using System.Data;
 
 namespace Ophelia.Repository
 {
@@ -8,8 +8,8 @@ namespace Ophelia.Repository
     {
         private readonly string _connectionString;
 
-        public IDbConnection Connection 
-        { 
+        public IDbConnection Connection
+        {
             get
             {
                 return new SqlConnection(_connectionString);

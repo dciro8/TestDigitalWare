@@ -17,9 +17,11 @@ namespace Ophelia.Api.Controllers
     [Route("api/v1/NextSale")]
     public class SaleController : Controller
     {
-
+        //ILogger Creacion de logs y seguimiento
         private readonly ILogger<SaleController> _logger;
         private readonly GetNextSaleBusiness _ruleBusiness;
+        //private readonly INextSaleBussiness _service;
+
         private static IConfiguration Configuration { get; set; }
 
         /// <summary>
@@ -30,6 +32,7 @@ namespace Ophelia.Api.Controllers
         {
             _logger = logger;
 
+
             var configurationBuilder = new ConfigurationBuilder()
                 .AddJsonFile("appsettings.json")
                 .AddEnvironmentVariables();
@@ -38,6 +41,11 @@ namespace Ophelia.Api.Controllers
             //leer la cadena
             _ruleBusiness = new GetNextSaleBusiness(Configuration.GetSection("ConnectionStrings").GetSection("ConnectionString").Value);
         }
+
+        //public SaleController(INextSaleBussiness service)
+        //{
+        //    _service = service;
+        //}
         /// <summary>
         /// Obtiene las fechas por año
         /// </summary>

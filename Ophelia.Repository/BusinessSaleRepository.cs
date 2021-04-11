@@ -7,7 +7,7 @@ using System.Data;
 using System.Threading.Tasks;
 namespace Ophelia.Repository
 {
-   public class BusinessSaleRepository : BaseRepository
+    public class BusinessSaleRepository : BaseRepository
     {
         public BusinessSaleRepository(string _connectionString) : base(_connectionString)
         {
@@ -34,11 +34,9 @@ namespace Ophelia.Repository
 
         public async Task<NextSale> GetNextSale(int id)
         {
-            List <NextSale> nextSale = null;
-            var cs = "Server=DESKTOP-0SP4VFM\\DCIRO;Database=Billing;Trusted_Connection=True;";
-
-            //using (IDbConnection dbConnection = this.Connection)
-            using (var dbConnection = new SqlConnection(cs))
+            List<NextSale> nextSale = null;
+           
+            using (IDbConnection dbConnection = this.Connection)
             {
                 dbConnection.Open();
 

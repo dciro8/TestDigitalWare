@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Ophelia.Core
 {
-  public  class GetNextSaleBusiness
+    public class GetNextSaleBusiness
     {
         private readonly BusinessSaleRepository _repository;
 
@@ -23,13 +23,13 @@ namespace Ophelia.Core
         }
         public async Task<List<SalesForYear>> GetSalesForYear(string year)
         {
-            List <SalesForYear> NextDaySale;
+            List<SalesForYear> NextDaySale;
 
             NextDaySale = await _repository.SalesForYear(year);
 
             return NextDaySale;
         }
 
-        
+
     }
 }

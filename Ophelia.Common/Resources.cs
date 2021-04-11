@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Ophelia.Common
+﻿namespace Ophelia.Common
 {
     public static class Resources
     {
