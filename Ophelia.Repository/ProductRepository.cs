@@ -19,7 +19,6 @@ namespace Ophelia.Repository
         {
             List<ProductDto> list = null;
 
-            //var cs = "Server=DESKTOP-0SP4VFM\\DCIRO;Database=Billing;Trusted_Connection=True;";
             using (IDbConnection dbConnection = this.Connection)
             {
                 dbConnection.Open();
@@ -40,23 +39,19 @@ namespace Ophelia.Repository
             {
                 dbConnection.Open();
 
-                // DynamicParameters
-
                 var result = await dbConnection.QueryAsync<ClientForDate>("[USP_GetUserMinAge]", new { },
                     commandType: CommandType.StoredProcedure);
-
                 list = result.AsList<ClientForDate>();
-
             }
 
             return list;
         }
 
 
-        public async Task<int> CreateProduct(ProductDto productDto)
+        public async Task<int> UpdateProduct(ProductDto productDto)
         {
-            int resultSentence= 0;
-            
+            int resultSentence = 0;
+
             using (IDbConnection dbConnection = this.Connection)
             {
                 dbConnection.Open();
@@ -74,9 +69,31 @@ namespace Ophelia.Repository
 
                 resultSentence = int.Parse(result.ToString());
             }
-
             return resultSentence;
         }
+        public async Task<int> CreateProduct(ProductDto productDto)
+        {
+            int resultSentence= 0;
+            
+            using (IDbConnection dbConnection = this.Connection)
+            {
+                dbConnection.Open();
+                var queryParameters = new DynamicParameters();
 
+                queryParameters.Add("@Id", productDto.Id);
+                queryParameters.Add("@Code", productDto.Code);
+                queryParameters.Add("@Name", productDto.Name);
+                queryParameters.Add("@Price", productDto.Price);
+                queryParameters.Add("@Quantity", productDto.Quantity);
+                queryParameters.Add("@MinimunAlloweb", productDto .MinimunAlloweb);
+                queryParameters.Add("@IndicateUpdate", 0);
+                
+                var result = await dbConnection.ExecuteAsync("[USP_INSERT_dbo_Product]", queryParameters,
+                    commandType: CommandType.StoredProcedure);
+
+                resultSentence = int.Parse(result.ToString());
+            }
+            return resultSentence;
+        }
     }
 }

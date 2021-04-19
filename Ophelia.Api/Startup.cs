@@ -14,7 +14,7 @@ namespace Ophelia.Api
             Configuration = configuration;
         }
 
-        readonly string allowSpecificOrigins = "_allowSpecificOrigins";
+        readonly string allowSpecificOrigins = "create";
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -23,6 +23,19 @@ namespace Ophelia.Api
             services.AddCors(options =>
 
             {
+
+                services.AddCors(options =>
+                {
+                    options.AddPolicy(name: allowSpecificOrigins,
+                                      builder =>
+                                      {
+                                          builder.WithOrigins("*")
+                                          .AllowAnyHeader()
+                                        .AllowAnyMethod()
+                            .WithMethods("PUT", "DELETE", "GET","POST");
+                                      });
+                });
+
 
                 options.AddPolicy(allowSpecificOrigins,
 
@@ -72,7 +85,7 @@ namespace Ophelia.Api
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers();
+                endpoints.MapControllers().RequireCors(allowSpecificOrigins);
             });
         }
     }

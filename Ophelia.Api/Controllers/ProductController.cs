@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
@@ -10,10 +11,10 @@ using System;
 
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Web.Http.Cors;
 
 namespace Ophelia.Api.Controllers
 {
+    [EnableCors("create")]
     [ApiController]
     [Route("api/v1/product")]
 
@@ -68,32 +69,59 @@ namespace Ophelia.Api.Controllers
 
         }
 
-             /// <summary>
-             /// Obtiene los clientes por unas fechas determinada
-             /// </summary>
-             /// <returns>Clientes filtrados por las fechas indicadas en el HU</returns>
+        /// <summary>
+        /// Obtiene los clientes por unas fechas determinada
+        /// </summary>
+        /// <returns>Clientes filtrados por las fechas indicadas en el HU</returns>
+
         [HttpPost]
         [Route("CreteProduct")]
-        public async Task<int> CreateProduct(ProductDto productDto)
+        public async Task<Response> CreateProduct(ProductDto productDto)
         {
-            int result = 0;
-
+            var response = new Response();
+            
             try
             {
                 _logger.LogInformation(Resources.Product_Initial_Messages);
 
-                result = await _ruleBusiness.CreateProduct(productDto);
+                response.Result = await _ruleBusiness.CreateProduct(productDto);
 
                 _logger.LogInformation(Resources.Product_Finally_Messages);
             }
             catch (Exception e)
             {
                 _logger.LogError(e.Message);
+                response.Message = e.Message;
             }
 
-            return result;
+            return response;
 
         }
+
+        [HttpPost]
+        [Route("UpdateProduct")]
+        public async Task<Response> UpdateProduct(ProductDto productDto)
+        {
+            var response = new Response();
+
+            try
+            {
+                _logger.LogInformation(Resources.Product_Initial_Messages);
+
+                response.Result = await _ruleBusiness.UpdateProduct(productDto);
+
+                _logger.LogInformation(Resources.Product_Finally_Messages);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e.Message);
+                response.Message = e.Message;
+            }
+
+            return response;
+
+        }
+
 
 
         /// <summary>

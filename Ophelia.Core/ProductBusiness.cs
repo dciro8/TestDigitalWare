@@ -39,11 +39,15 @@ namespace Ophelia.Core
             result = await _repository.CreateProduct(productDto);
 
             return result;
-}
+        }
 
+        public async Task<int> UpdateProduct(ProductDto productDto)
+        {
+            int result;
 
+            result = await _repository.CreateProduct(productDto);
 
-
-
+            return result;
+        }
     }
 }
