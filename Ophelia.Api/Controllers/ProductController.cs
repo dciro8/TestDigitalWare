@@ -69,6 +69,30 @@ namespace Ophelia.Api.Controllers
 
         }
 
+        [HttpGet]
+        [Route("GetProductId")]
+        public async Task<List<ProductDto>> GetProductId(string Id)
+        {
+            List<ProductDto> list = null;
+
+            try
+            {
+                _logger.LogInformation(Resources.Product_Initial_Messages);
+
+                list = await _ruleBusiness.GetProductId(Id);
+
+                _logger.LogInformation(Resources.Product_Finally_Messages);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e.Message);
+            }
+
+            return list;
+
+        }
+
+
         /// <summary>
         /// Obtiene los clientes por unas fechas determinada
         /// </summary>
@@ -83,7 +107,7 @@ namespace Ophelia.Api.Controllers
             try
             {
                 _logger.LogInformation(Resources.Product_Initial_Messages);
-
+                productDto.Id= Guid.NewGuid();
                 response.Result = await _ruleBusiness.CreateProduct(productDto);
 
                 _logger.LogInformation(Resources.Product_Finally_Messages);
@@ -97,6 +121,33 @@ namespace Ophelia.Api.Controllers
             return response;
 
         }
+
+        [HttpGet]
+        [Route("DeleteProductId")]
+
+
+        public async Task<int> DeleteProductId(string Id)
+        {
+            int delete= 0;
+
+            try
+            {
+                _logger.LogInformation(Resources.Product_Initial_Messages);
+
+                  delete = await _ruleBusiness.DeleteProductId(Id);
+
+                _logger.LogInformation(Resources.Product_Finally_Messages);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e.Message);
+            }
+
+            return delete;
+
+        }
+
+
 
         [HttpPost]
         [Route("UpdateProduct")]

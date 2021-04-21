@@ -31,6 +31,24 @@ namespace Ophelia.Repository
 
             return list;
         }
+        public async Task<List<ProductDto>> GetProductId(string Id)
+        {
+            List<ProductDto> list = null;
+
+            using (IDbConnection dbConnection = this.Connection)
+            {
+                dbConnection.Open();
+                var queryParameters = new DynamicParameters();
+
+                queryParameters.Add("@Id", Id);
+                var result = await dbConnection.QueryAsync<ProductDto>("[USP_GetAllProductsId]", queryParameters,
+                    commandType: CommandType.StoredProcedure);
+
+                list = result.AsList<ProductDto>();
+            }
+
+            return list;
+        }
         public async Task<List<ClientForDate>> AllClientForDate()
         {
             List<ClientForDate> list = null;
@@ -46,8 +64,26 @@ namespace Ophelia.Repository
 
             return list;
         }
+        public async Task<int> DeleteProductId(string Id)
+        {
+            int resultValue = 0;
 
+            using (IDbConnection dbConnection = this.Connection)
+            {
+                dbConnection.Open();
+                var queryParameters = new DynamicParameters();
 
+                queryParameters.Add("@Id", Id);
+
+                var result = await dbConnection.ExecuteAsync("[USP_Delete_dbo_Product]", queryParameters,
+                commandType: CommandType.StoredProcedure);
+
+                resultValue = int.Parse(result.ToString());
+
+            }
+
+            return resultValue;
+        }
         public async Task<int> UpdateProduct(ProductDto productDto)
         {
             int resultSentence = 0;
@@ -86,7 +122,7 @@ namespace Ophelia.Repository
                 queryParameters.Add("@Price", productDto.Price);
                 queryParameters.Add("@Quantity", productDto.Quantity);
                 queryParameters.Add("@MinimunAlloweb", productDto .MinimunAlloweb);
-                queryParameters.Add("@IndicateUpdate", 0);
+                queryParameters.Add("@IndicateUpdate", productDto.isSave);
                 
                 var result = await dbConnection.ExecuteAsync("[USP_INSERT_dbo_Product]", queryParameters,
                     commandType: CommandType.StoredProcedure);

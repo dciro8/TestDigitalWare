@@ -23,13 +23,30 @@ namespace Ophelia.Core
             return list;
         }
 
-        public async Task<List<ClientForDate>> AllClientForDate()
+        public async Task<List<ProductDto>> GetProductId(string Id)
+        {
+            List<ProductDto> list;
+
+            list = await _repository.GetProductId(Id);
+
+            return list;
+        }
+
+       public async Task<List<ClientForDate>> AllClientForDate()
         {
             List<ClientForDate> list;
 
             list = await _repository.AllClientForDate();
 
             return list;
+        }
+        public async Task<int> DeleteProductId(string Id)
+        {
+            int result=0;
+
+            result = await _repository.DeleteProductId(Id);
+
+            return result;
         }
 
         public async Task<int> CreateProduct(ProductDto productDto)

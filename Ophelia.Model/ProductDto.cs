@@ -10,6 +10,6 @@
         public decimal Quantity { get; set; }
         public int MinimunAlloweb { get; set; }
 
-
+        public bool isSave { get; set; }
     }
 }
