@@ -3,15 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31112.23
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ophelia.Api", "Ophelia.Api\Ophelia.Api.csproj", "{0A0AB3EB-7566-4254-B0AF-E91ACFD097A9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ophelia.Api", "Ophelia.Api\Ophelia.Api.csproj", "{0A0AB3EB-7566-4254-B0AF-E91ACFD097A9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ophelia.Core", "Ophelia.Core\Ophelia.Core.csproj", "{9B702411-FAA9-4D97-A326-26C94A52F1DE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ophelia.Core", "Ophelia.Core\Ophelia.Core.csproj", "{9B702411-FAA9-4D97-A326-26C94A52F1DE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ophelia.Model", "Ophelia.Model\Ophelia.Model.csproj", "{DB3CF77F-2F32-4D42-9784-2845DC2E66C1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ophelia.Model", "Ophelia.Model\Ophelia.Model.csproj", "{DB3CF77F-2F32-4D42-9784-2845DC2E66C1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ophelia.Repository", "Ophelia.Repository\Ophelia.Repository.csproj", "{248D3B1A-657C-4D13-9F96-7D932955AF72}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ophelia.Repository", "Ophelia.Repository\Ophelia.Repository.csproj", "{248D3B1A-657C-4D13-9F96-7D932955AF72}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ophelia.Common", "Ophelia.Common\Ophelia.Common.csproj", "{49562F98-2DBA-49CD-B76F-B5F83A7BE631}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ophelia.Common", "Ophelia.Common\Ophelia.Common.csproj", "{49562F98-2DBA-49CD-B76F-B5F83A7BE631}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ophelia.Console.Test", "Ophelia.Console.Test\Ophelia.Console.Test.csproj", "{43CC8500-3317-4A52-BBC7-3B6ABBC3B801}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{49562F98-2DBA-49CD-B76F-B5F83A7BE631}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{49562F98-2DBA-49CD-B76F-B5F83A7BE631}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{49562F98-2DBA-49CD-B76F-B5F83A7BE631}.Release|Any CPU.Build.0 = Release|Any CPU
+		{43CC8500-3317-4A52-BBC7-3B6ABBC3B801}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{43CC8500-3317-4A52-BBC7-3B6ABBC3B801}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{43CC8500-3317-4A52-BBC7-3B6ABBC3B801}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{43CC8500-3317-4A52-BBC7-3B6ABBC3B801}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
